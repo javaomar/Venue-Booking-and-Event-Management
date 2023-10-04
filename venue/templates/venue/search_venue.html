@@ -1,0 +1,26 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	 
+		{% if searched %}
+
+		<h1>Your Searched For {{searched}} </h1><br/><br/>
+		<table class="table table-hover table-striped table-bordered">
+			{% for venue in venues  %}
+			<tr>
+				<td>
+					<a href="{% url 'venues:show-venue' pk=venue.id %}">
+					 {{venue}} </a><br>
+					 <a href="{% url 'venues:show-venue' pk=venue.id %}">
+					 {{venue.web}} </a>
+				</td>
+			</tr>
+			{%endfor%}
+		</table>
+		{%else%}
+			<h1>Hey! You Forgot To Search For A Venue....</h1>
+		{%endif%}
+
+{%endblock%}
+

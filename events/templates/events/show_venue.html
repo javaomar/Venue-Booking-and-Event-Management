@@ -1,0 +1,53 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	<center>
+		<h1>Venue</h1><br>
+		 
+		
+ 
+		
+ 
+
+	</center>
+
+<div class="card">
+  <div class="card-header">
+    Venue
+  </div>
+  <div><a href="{% url 'chat_app:chatroom' username2=venue.owner.username %}">contact</a></div>
+  <div class="card-body">
+    <h5 class="card-title">{{venue}}</h5>
+    <h6 class="card-title">Manager: {{venue.owner}}</h6>
+    <p class="card-text"> 
+    	<p>Address: {{venue.address}}</p><br/>
+		<p>Phone: {{venue.phone}}</p><br/>
+		<p>price: {{venue.price}} </p>
+		<p>Email Address: {{venue.email_address}}</p>
+			<p>price: {{venue.price}}</p>
+		<a href="{% url 'events:show-venue' venue_id=venue.id %}">Website: {{venue.web}}</a><br/>
+		{% if user == venue.owner %}
+		<a href="{% url 'events:update-venue'  venue_id=venue.id %}" class='btn btn-secondary'>Edit</a>
+		{% else %}
+		<a href="{%url 'events:reservation-form' venue_id=venue.id%}" class='btn btn-secondary'>Reserve</a>
+		<a href="{%url 'chat_app:chatroom'  username2=venue.owner %}" class='btn btn-secondary'>Contact</a>
+		{%endif%}
+	</p>
+     
+  </div>
+</div>
+<!-- venue_detail.html -->
+<h1>{{ venue.name }}</h1>
+ 
+<p>Owner: {{ venue.owner }}</p>
+
+<h2>Occupancy Information</h2>
+<ul>
+    {% for occupancy in venue.occupancy_set.all %}
+        <li>{{ occupancy.start_datetime|date:"F j, Y H:i" }} - {{ occupancy.end_datetime|date:"F j, Y H:i" }}</li>
+    {% endfor %}
+</ul>
+<!-- ... other details ... -->
+
+{%endblock%}

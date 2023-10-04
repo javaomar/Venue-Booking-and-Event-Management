@@ -1,0 +1,42 @@
+
+{%extends "events/base.html" %}
+
+{% block content%}
+
+
+
+    <h1> Cancel Reservation </h1>
+     
+    <div class="card">
+        <div class="card-header">
+        {{reservation.user}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Requested by {{reservation.user}}</h5>
+            <p class="card-text">{{reservation.reason_html|safe}}</p>
+            <p class="card-text">Number of Guesst: {{reservation.num_attendees}}</p>
+            <p class="card-text"> Veneu capacity: {{reservation.venue.capacity}}</p>
+            <p class="card-text"> Start Date: {{reservation.start_datetime}}</p>
+            <p class="card-text">End Date: {{reservation.end_datetime}}</p>
+             <p class="card-text">Approve: {{reservation.approval_status}}</p>
+            <div class="row">
+                <div class="col">
+                    
+            {%if reservation.approval_status%}
+            <form method="post" action="{% url 'reservation:cancel-reserv' res_id=reservation.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="cancel_confirmation">Are you sure you want to cancel this reservation?</label>
+                </div>
+                    <button type="submit" class="btn btn-outline-danger">Submit</button>
+                    <a href="{% url 'reservation:reservation-venue' res_id=reservation.id%}" class="btn btn-outline-secondary">Cancel</a>
+            </form>
+            {%else%}
+                <
+            {%endif%}
+                </div>
+            </div>
+        </div>
+    </div> 
+ 
+{%endblock%}

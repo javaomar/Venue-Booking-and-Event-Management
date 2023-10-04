@@ -1,0 +1,27 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	 
+		
+		{% if sumitted == update%}
+			 
+			<h1>Update {{venue}} </h1><br/>
+		{%else%}
+		<h1>Add Venue To Database</h1><br/>
+		{% endif %}
+
+		{% if submitted %}
+			Your Venue was Submitted Succefully!!
+		{%else%}
+
+			<form method="post" enctype="multipart/form-data">
+				<!-- csrf is a securaty token-->
+				{% csrf_token %} 
+				{{ form.as_p }}
+	  			<input type='submit' value='Submit' class='btn btn-secondary'>
+			</form>
+
+		{%endif%}
+
+{%endblock%}

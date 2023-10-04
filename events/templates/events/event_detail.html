@@ -1,0 +1,49 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	<h1>all Events </h1>
+
+	 
+
+	<div class="card">
+	  <div class="card-header">
+	    <strong>{{event.name}}</strong>
+	  </div>
+	  <div class="card-body">
+	  	<h6 class="card-subtitle mb-2 text-body-secondary">Venue: {{event.venue}}</h6>
+	 	<p class="card-text">Manager: {{event.manager}}</p>
+	    <p class="card-text bg-light rounded pt-3 pb-3">{{event.description}}</p>
+		<a href="{% url 'show_venue' }" class="card-link">{{event.venue.web}}<br/></a>
+		<p class="d-inline-block">Attendees:</p>
+		{% for attend in event.attendees.all%}
+		<p class="card-text d-inline-block">{{attend}}, </p>
+		{%endfor%}<br/>
+		{{event.event_date}} 
+	  </div>
+<div class="card-footer d-flex justify-content-between">
+	{% if user == event.manager %}
+    <a href="{% url 'events:update-event' event_id=event.id %}" class="btn btn-outline-secondary">Update</a>
+    {%else%}
+    <a href="{% url 'events:list-events'  %}" class="btn btn-outline-secondary ">All Events</a>
+    {%endif%}
+
+    <div>{% if user == event.manager %}
+         <a href="{% url 'events:list-events' %}" class="btn btn-outline-secondary ml-auto">All Events</a>
+        <a href="{% url 'events:delete-event' event_id=event.id %}" class="btn btn-outline-danger ml-auto">Delete</a>
+
+        {% else %}
+        	<a href="{%url 'events:myclub' event_id=event.id%}" class="btn btn-outline-primary ml-auto">Buy Ticket</a>
+			<a href="{% url 'chat_app:chat' username=event.manager.username %} " class="btn btn-outline-success ml-auto">Contact</a>
+        {%endif%}
+		
+    </div>
+</div>
+
+<br/>
+
+
+ 
+ 
+
+{%endblock%}

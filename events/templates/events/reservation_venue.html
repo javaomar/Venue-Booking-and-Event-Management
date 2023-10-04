@@ -1,0 +1,65 @@
+
+{%extends "events/base.html" %}
+
+{% block content%}
+
+
+
+    <h1> Reservations Made to You</h1>
+    {% for reservation in reservations %}
+    <div class="card">
+        <div class="card-header">
+        {{reservation.user}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Requested by {{reservation.user}}</h5>
+            <p class="card-text">{{reservation.reason_html|safe}}</p>
+            <p class="card-text">Number of Guesst: {{reservation.num_attendees}}</p>
+            <p class="card-text"> Veneu capacity: {{reservation.venue.capacity}}</p>
+            <p class="card-text"> Start Date: {{reservation.start_datetime}}</p>
+            <p class="card-text">End Date: {{reservation.end_datetime}}</p>
+            <div class="row">
+                {%if not reservation.approval_status %}
+                <div class="col">
+                    <a href="{% url 'events:approved-reserv' res_id=reservation.id%}" class="btn btn-outline-primary">approve </a>
+
+                    <a href="{% url 'events:disapproved-reserv' res_id=reservation.id%}" class="btn btn-outline-secondary">Disapprove</a>
+                </div>
+                {%else%}
+                    <div class="col">
+                        <p>This Resevation was approved click here to cancel
+                    <a href="{% url 'events:cancel-reserv' res_id=reservation.id%}" class="btn btn-outline-secondary">cancel</a>
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    </div> 
+        {% empty %}
+        <li>No reservations found.Select Venue and Make a Reservation               <a href="{%url 'venues:list-venues'%}" class='btn btn-outline-secondary ml-auto'>Venues</a></li>
+      {% endfor %}
+{% for reservation in  reservations  %}
+<div>
+    
+
+    <table class="table table-hover table-striped table-bordered">
+
+        <tr>
+            <td  align='left'>
+                <a href="#">
+                {{reservation.name}} </a> 
+            </td>
+            <td align='right'>
+                <a href="#" class="btn btn-sm btn-outline-dark">update</a>
+                <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                <a href="#" class="btn btn-sm btn-outline-primary">buy</a>
+                <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+{%endfor%}
+
+{%endblock%}

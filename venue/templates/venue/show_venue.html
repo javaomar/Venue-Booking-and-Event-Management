@@ -1,0 +1,43 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+ 
+		<h1>Venue</h1><br>
+		 
+		
+ 
+		
+ 
+ 
+
+<div class="card">
+  <div class="card-header">
+	 <h2> Venue: {{venue}}</h2> 
+  </div>
+ 
+  <div class="card-body">
+    <h5 class="card-title">{{venue}}:</h5>
+    <h6 class="card-title">Manager: {{venue.owner}}</h6>
+    <p class="card-text"> 
+    	<p>Address: {{venue.address}}</p>
+		<p>Phone: {{venue.phone}}</p>
+		<p>Email: Address: {{venue.email_address}}</p>
+		<p>price: ${{venue.price}}</p>
+		<p>capacity: {{venue.capacity}}</p>
+		<p>Description: {{ venue.descriptions }}</p>
+		<p>Website: <a href="{% url 'venues:show-venue' venue_id=venue.id %}"> {{venue.web}}</a></p><br/>
+		{% if user == venue.owner %}
+		<a href="{% url 'venues:update-venue'  venue_id=venue.id %}" class='btn btn-md btn-outline-secondary'> Edit </a>
+		<a href="{% url 'venues:delete-venue'  venue_id=venue.id %}" class='btn btn-md btn-outline-danger'>Delete</a>
+		{% else %}
+		<a href="{%url 'reservation:reservation-form' venue_id=venue.id%}" class='btn btn-secondary'>Reserve</a>
+		<a href="{%url 'chat_app:chat'  username=venue.owner.username %}" class='btn btn-secondary'>Contact</a>
+		{%endif%}
+	</p>
+     
+  </div>
+</div>
+ 
+
+{%endblock%}

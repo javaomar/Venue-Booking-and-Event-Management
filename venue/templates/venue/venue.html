@@ -1,0 +1,128 @@
+{%extends "events/base.html" %}
+{%load static %}
+
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/event_list.css' %}">
+
+{%endblock%}
+
+{% block content%}
+<div class="d-flex justify-content-between">
+	<h1 style="text-align: left;">All Events Here</h1>
+	<a href="{% url 'venues:add-venue' %}" class="btn btn-sm btn-outline-primary">Create Venue</a>
+  </div>
+  <hr style="width: 100%; margin-top: 0;">
+<!-- <div class="container" style="max-height: 500px; overflow-y: auto;"> -->
+<div class="container">
+    <div class="row">
+      {% for venue in venues %}
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card mb-4">
+          <a href="{% url 'venues:show-venue' venue_id=venue.id %}">
+          <img src="{{ venue.picture.url }}" class="card-img-top" alt="{{ venue.name }}"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{ venue.name }}</h5>
+            <p class="card-text">Capacity: {{ venue.capacity }}</p>
+            <p class="card-text">Owner: {{ venue.owner }}</p>
+            <p class="card-text">Price: ${{ venue.price }}</p>
+            {% if venue.owner == user %}
+            <div class="text-right">
+              <a href="{% url 'venues:update-venue' venue_id=venue.id %}" class="btn btn-outline-primary btn-sm">Update</a>
+              <a href="{% url 'venues:delete-venue' venue_id=venue.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+            </div>
+            {% else %}
+            <div class="text-right">
+              <a href="{% url 'reservation:reservation-form' venue_id=venue.id %}" class="btn btn-outline-primary btn-sm">Reserve Venue</a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- </div> -->
+    <!-- <div class="row display-flex justify-content-start">
+    {% for venue in venues %}
+        <div class="col-lg-4 col-md-6 col-sm-12 mobiledevice gallary">
+            <article class="media content-section customhover" style="height: 95%;">
+                <div class="media-body">
+                    <a href="/{{venue.slug}}">
+                        <div class="aspect-ratio-box">
+                            <a href="{% url 'venues:show-venue' venue_id=venue.id%}">
+                                <img class="img-fluid" src="{{ venue.picture.url }}"></a>
+                        </div>
+                    </a>
+                    <div class="article-metadata">
+  
+                        
+                        {% if venue.owner == user %}
+                            <div style="float:right">
+                                {% if type == "series" %}
+                                    <a class="btn btn-outline-light btn-sm mt-1 mb-1" href="{% url 'venues:update-venue' venue_id=venue.id %}">Update</a>
+                                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{%url 'venues:delete-venue' venue_id=venue.id %}">Delete</a>
+                                {% else %}
+                                    <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'venues:update-venue' venue_id=venue.id %}">Updates</a>
+                                    <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{%url 'venues:delete-venue' venue_id=venue.id %}">Delete</a>
+                                {% endif %}
+                            </div>
+                        {%else%}
+                        <div style="float:right">
+                            <a href="{%url 'reservation:reservation-form' venue_id=venue.id%}" class="btn btn-outline-primary">Reserve Venue</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <a class="article-title line-clamp-2 title-style" style="font-size: 22px" href="/{{venue.slug}}">
+                          {{venue.name}}
+                        </a>
+                        <p href="#" style="text-decoration: none;">
+                            <a class="article-content line-clamp-5 subtitle-style">Capacity: {{venue.capacity}}</a>
+                        </p>
+                        <p href="#" style="text-decoration: none;">
+                            <a class="article-content line-clamp-5 subtitle-style">Owner: {{venue.owner}}</a>
+                        </p>
+                        <a href="#" style="text-decoration: none;">
+                            <p class="article-content line-clamp-5 subtitle-style">Price: ${{venue.price}}</p>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {% endfor %}
+    </div>
+	 
+ 
+<a href="{% url 'venues:add-venue' %}" class="btn btn-sm btn-outline-primary">Create Veneu</a>
+ 
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item  ">
+                {%if venues.has_previous %}
+                {%if venues.number > 1 %}
+            <a href="?page={{venues.previous_page_number}}"class="page-link">Previous</a>
+                {%endif%}
+                {%endif%}
+            </li>
+                {% for page_number in venues.paginator.page_range %}
+            <li class="page-item ">
+                {% if page_number == 1 %}
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                {%elif page_number == venues.number %}
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            {%elif page_number == venues.paginator.num_pages%}
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            {%endif%}
+            </li>
+            {% endfor %}
+            <li class="page-item">
+            {%if venues.has_next %}
+            <a href="?page={{venues.next_page_number}}"class="page-link">Next</a>
+            {%endif%}
+            </li>
+        </ul>
+    </nav>
+    <hr><br><br/> -->
+ 
+{%endblock%}

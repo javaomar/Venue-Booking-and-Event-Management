@@ -1,0 +1,30 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+		
+		
+			{% if submitted %}
+				<h1>Here is you ticket</h1>
+				<div class="card">
+				  <h5 class="card-header">Ticket Holder: {{ticket.purchaser.last_name}}</h5>
+				  <div class="card-body">
+				    <h5 class="card-title">Event: {{ticket.purchaser.event.name}}</h5>
+				    <p class="card-text">{{ticket.purchaser.event.description_html|safe}}</p>
+				    <a  href="{% url 'events:ticket-pdf' ticket_id=ticket.id %}" class="btn btn-outline-primary"> Download Ticket</a>
+				  </div>
+				</div>
+			{%else%}
+			<h1>Your</h1><br/>
+		 
+
+			<form action='' method="post">
+				<!-- csrf is a securaty token-->
+				{% csrf_token %} 
+				{{ form.as_p }}
+	  			<input type='submit' value='Submit' class='btn btn-secondary'>
+			</form>
+			{%endif%}
+	 
+
+{%endblock%}

@@ -1,0 +1,38 @@
+
+{%extends "events/base.html" %}
+
+{% block content%}
+
+    <h1>Your Reservations</h1>
+
+    {% for reservation in user_reservations %}
+    <div class="card">
+        <div class="card-header">
+        {{reservation.name}}
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">Requested by {{reservation.user}}</h5>
+        <p class="card-text">{{reservation.reason_html|safe}}</p>
+        <p class="card-text">{{reservation.start_date}}</p>
+        <p class="card-text">{{reservation.end_date}}</p>
+        {% if reservation.approval_status %}
+        <div class='row'>
+            <p>Your Reservation Was Approved!!, Create Event</p>
+            <a href="{% url 'events:add-event' venue_id=reservation.venue.id %}" class="btn btn-primary">Create Event</a>
+        </div>
+        {% else %}
+        <p>Approvel Status: Waiting</p>
+        {%endif%}
+        </div>
+    </div><br>
+ 
+        {% empty %}
+        <li>No reservations found.Select Venue and Make a Reservation               <a href="{%url 'venues:list-venues'%}" class='btn btn-outline-secondary ml-auto'>Venues</a></li>
+       
+        
+ 
+    {% endfor %}
+
+
+    <hr><br>
+{%endblock%}

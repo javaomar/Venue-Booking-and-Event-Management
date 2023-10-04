@@ -1,0 +1,57 @@
+{% extends 'events/base.html' %}
+<!-- {% load crispy_forms_tags %} -->
+
+{%block content %}
+ 
+
+<!-- <form method='POST'>
+	{%csrf_token%}
+	{{form.as_p}}
+	<input type="submit" value="Sign Up" class='btn btn-primary'>
+</form> -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Welcome to Connect, Please Sign Up!</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <!-- {{ form.first_name.label_tag }} -->
+                            {{ form.first_name }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.last_name.label_tag }} -->
+                            {{ form.last_name }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.username.label_tag }} -->
+                            {{ form.username }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.email.label_tag }} -->
+                            {{ form.email }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.status.label_tag }} -->
+                            {{ form.status }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.password1.label_tag }} -->
+                            {{ form.password1 }}
+                        </div>
+                        <div class="mb-3">
+                            <!-- {{ form.password2.label_tag }} -->
+                            {{ form.password2 }}
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" value="Sign Up" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

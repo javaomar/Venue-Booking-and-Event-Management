@@ -1,0 +1,40 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	<center>
+		{% if messages %}
+		 
+				{% for message in messages %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					  <strong>{{ message }}</strong>  
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endfor %}
+
+		{% endif %}
+
+
+		{%if update%}
+			<h1>Update {{event}}</h1><br/>
+		{%else%}
+		 <h1>Add Event To Database</h1><br/>
+ 		{%endif%}
+
+		{% if submitted %}
+			<p>You Event has been submitted Successfully</p>
+		{% else %}
+
+			<form action='' method="post">
+				<!-- csrf is a securaty token-->
+				{% csrf_token %} 
+				{{ form.as_p }}
+	  			<input type='submit' value='Submit' class='btn btn-outline-secondary'>
+
+			</form>
+		 
+			 
+ 		{%endif%}
+
+{%endblock%}
+  

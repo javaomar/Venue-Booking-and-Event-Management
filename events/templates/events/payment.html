@@ -1,0 +1,24 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+	 
+		
+		
+			{%if submitted %}
+				<h1> Your Payment Was Successfull!! Enjoy Your Event<h1> 
+			
+			{%else%}
+			<h1>Payment for {{venue}} </h1><br/>
+		 
+
+			<form action='' method="post">
+				<!-- csrf is a securaty token-->
+				{% csrf_token %} 
+				{{ form.as_p }}
+	  			<input type='submit' value='Submit' class='btn btn-secondary'>
+			</form>
+		{%endif%}
+	 
+
+{%endblock%}

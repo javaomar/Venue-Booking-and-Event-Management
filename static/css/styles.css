@@ -1,0 +1,10 @@
+/* Example CSS */
+.faded-label {
+    color: red; /* Light gray color */
+}
+html, body {
+    height: 100%;
+}
+.city-event{
+    padding: 55px;
+}

@@ -1,0 +1,89 @@
+
+{%extends "events/base.html" %}
+
+{% block content%}
+
+
+
+    <h1> Reservations For {{reservation.venue}}</h1>
+ 
+    <div class="card">
+        <div class="card-header">
+        <h4>{{reservation.name}}</h4>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Requested by {{reservation.user}}</h5>
+            <p class="card-text">Note:{{reservation.reason_html|safe}}</p>
+            <p class="card-text">Number of Guesst: {{reservation.num_attendees}}</p>
+            <p class="card-text"> Veneu capacity: {{reservation.venue.capacity}}</p>
+            <p class="card-text"> Start Date: {{reservation.start_datetime}}</p>
+            <p class="card-text">End Date: {{reservation.end_datetime}}</p>
+            <div class="row">
+                {% if reservation.approval_status %}
+                <div class="col">
+                    <p>This Reservation was approved. Click here to cancel
+                        <a href="{% url 'reservation:cancel-reserv' res_id=reservation.id  %}" class="btn btn-outline-secondary">Cancel</a>
+                    </p>
+                </div>
+                <div class="col ml-auto">
+                    <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-success float-end">Contact</a>
+                </div>
+                {% else %}
+                <div class="col">
+                    <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-primary">Approve</a>
+                    <a href="{% url 'reservation:disapproved-reserv' res_id=reservation.id %}" class="btn btn-outline-danger">Disapprove</a>
+                </div>
+                <div class="col ml-auto">
+                    <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-success float-end">Contact</a>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- <div class="row">
+                {%if reservation.approval_status %}
+                <div class="col">
+                    <p>This Resevation was approved click here to cancel
+                        <a href="{% url 'reservation:cancel-reserv' res_id=reservation.id  %}" class="btn btn-outline-secondary">cancel</a></p>
+                        <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-success">Contact</a>
+                    </div>
+                {%else%}
+                <div class="col">
+                    <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-primary">Approve</a>
+                    <a href="{% url 'reservation:disapproved-reserv' res_id=reservation.id %}" class="btn btn-outline-danger">Disapprove</a>
+                    <a href="{% url 'reservation:approved-reserv' res_id=reservation.id  %}" class="btn btn-outline-success">Contact</a>
+                </div>
+                <div>
+                   
+                </div>
+                
+                {%endif%}
+            </div> -->
+        </div>
+    </div> 
+ 
+ 
+    <div>
+
+
+        <!-- <table class="table table-hover table-striped table-bordered">
+
+            <tr>
+                <td  align='left'>
+                    <a href="#">
+                    {{reservation.name}} </a> 
+                </td>
+                <td align='right'>
+                    <a href="#" class="btn btn-sm btn-outline-dark">update</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                    <a href="#" class="btn btn-sm btn-outline-primary">buy</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+
+            </tr>
+
+        </table> -->
+
+    </div>
+ 
+
+{%endblock%}

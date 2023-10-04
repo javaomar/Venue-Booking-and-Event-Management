@@ -1,0 +1,55 @@
+
+{%extends "events/base.html" %}
+{% include 'events/messages.html' %}
+{% block content%}
+<br><h2>Reservation That Need Approval</h2>
+<table class="table table-hover table-striped table-bordered">
+    {% for reservation in venue_reservation %}
+    <tr>
+        <td  >
+            <a href="#">
+             {{reservation.venue}} </a> 
+        </td>
+        <td align='right'>
+                <a href="{% url 'reservation:reservation-venue' res_id=reservation.id %}" class="btn btn-sm btn-outline-dark">view</a>
+        </td>
+    </tr>
+    {%endfor%} 
+
+</table>
+
+<hr><br>
+
+
+<br><h2>Reservations Made By you</h2>
+    <table class="table table-hover table-striped table-bordered">
+        {% for reservation in user_reservations %}
+        <tr>
+            <td  >
+                <a href="#">
+                 {{reservation.venue}} </a> 
+            </td>
+            <td align='right'>
+                <a href="{% url 'events:add-event' res_id=reservation.id %}" class="btn btn-sm btn-outline-dark">Create Event</a>
+                <!-- {% if user == reservation.venue.owner %}
+                 <a href="#" class="btn btn-sm btn-outline-dark">update</a>
+                 <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                {% else %}
+                    <a href="{% url 'reservation:reservation-venue' res_id=reservation.id %}" class="btn btn-sm btn-outline-dark">view</a>
+                    <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                {%endif%} -->
+                <a href="{% url 'reservations:reserv-cancel' res_id=reservation.id %}" class="btn btn-sm btn-outline-danger">Cancel Reservation</a>
+            </td>
+        </tr>
+    </div><br>
+ 
+        {% empty %}
+        <li>No reservations found.Select Venue and Make a Reservation
+            <a href="{%url 'venues:list-venues'%}" class='btn btn-outline-secondary ml-auto'>Venues</a></li>
+   
+    
+        {%endfor%} 
+
+    </table>
+ 
+{%endblock%}

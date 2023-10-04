@@ -1,0 +1,39 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+
+ 
+		<h1>Venue</h1><br>
+		 
+		
+ 
+		
+ 
+ 
+
+<div class="card">
+  <div class="card-header">
+	 <h2> Venue: {{venue}}</h2> 
+  </div>
+ 
+  <div class="card-body">
+    <h5 class="card-title">{{venue}}:</h5>
+    <h6 class="card-title">Manager: {{venue.owner}}</h6>
+    <p class="card-text"> 
+    	<p>Address: {{venue.address}}</p>
+		<p>Phone: {{venue.phone}}</p>
+		<p>Email Address: {{venue.email_address}}</p>
+		<p>price: {{venue.price}}</p>
+		<p>price: {{venue.descriptions}}</p>
+		<a href="{% url 'venues:show-venue' venue_id=venue.id %}">Website: {{venue.web}}</a><br/>
+		{% if user == venue.owner %}
+		<a href="{% url 'venues:show-venue'  venue_id=venue.id %}" class='btn btn-md btn-outline-primary'>Back</a>
+		<a href="{% url 'venues:delete-venue'  venue_id=venue.id delete=True %}" class='btn btn-md btn-outline-danger'>Delete</a>
+		{%endif%}
+	</p>
+     
+  </div>
+</div>
+ 
+
+{%endblock%}

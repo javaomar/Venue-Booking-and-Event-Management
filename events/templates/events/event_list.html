@@ -1,0 +1,110 @@
+{%extends "events/base.html" %}
+
+{% block content%}
+ 
+<div class="d-flex justify-content-between">
+	<h1 style="text-align: left;">All Events Here</h1>
+	<a href="{% url 'venues:list-venues' %}" class="btn btn-sm btn-outline-primary">Rent Venue</a>
+  </div>
+  <hr style="width: 100%; margin-top: 0;">
+  
+  <!-- Rest of your event display code goes here -->
+  
+<div class="container">
+  <div class="row">
+    {% for event in events %}
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card mb-4">
+		<a href="{% url 'events:event-detail' event_id=event.id %}">
+        <img src="{{ event.venue.picture.url }}" class="card-img-top" alt="{{ event.venue.name }}"></a>
+        <div class="card-body">
+		<a href="{% url 'events:event-detail' event_id=event.id %}">
+          <h5 class="card-title">{{ event.name }}</h5></a>
+		  {% if event.speaker %}
+          <p class="card-text text-muted">Speaker: {{ event.speaker }}</p>
+		  {% else %}
+		  <p class="card-text text-muted">Speaker: {{ event.manager }}</p>
+		  {% endif %}
+          <p class="card-text text-muted">{{ event.event_date }}</p>
+          <div class="text-right">
+            {% if user == event.manager %}
+            <a href="{% url 'events:update-event' event_id=event.id %}" class="btn btn-outline-primary btn-sm">Update</a>
+            <a href="{% url 'events:delete-event' event_id=event.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+            {% else %}
+            <a href="{% url 'events:event-detail' event_id=event.id %}" class="btn btn-outline-primary btn-sm">Buy</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+	<!-- <h1>all Events here</h1>
+	
+ 
+	
+{% for event in events %}
+<div class='gallary'>
+	<div class="card" style="width: 18rem;">
+		<img src="{{event.venue.picture.url}}" class="card-img-top" alt="{{ event.venue.name }}">
+		<div class="card-body">
+			<h5 class="card-title">{{event.name}}</h5>
+			<p class="card-text text-muted">Speaker: {{event.speaker}}</p>
+			<p class="card-text text-muted">{{event.event_date}}</p>
+			<a href="{%url 'events:event-detail' event_id=event.id %}" class="btn btn-outline-primary">Event Detail</a>
+		</div>
+	</div>
+</div>
+{%endfor%}
+<table class="table table-hover table-striped table-bordered">
+	{% for event in events %}
+	<tr>
+		<td  >
+			<a href="{% url 'events:event-detail' event_id=event.id %}">
+			 {{event}} </a> 
+
+		</td>
+		
+		<td align='right'>
+			{%if user == event.manager %}
+				 <a href="{% url 'events:update-event' event_id=event.id %}" class="btn btn-sm btn-outline-dark">update</a>
+				 <a href="{% url 'events:delete-event' event_id=event.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+			 {%else%}
+				 <a href="{%url 'events:event-detail' event_id=event.id%}" class="btn btn-sm btn-outline-primary">buy</a>
+			{%endif%}
+			<a href="{% url 'events:delete-event' event_id=event.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+		</td>
+		
+	</tr>
+	{%endfor%}
+</table> -->
+<!-- {%for event in events%}
+	<div class="card">
+	  <div class="card-header">
+	    <strong>{{event.name}}<a href="{%url 'events:event-detail' event_id=event.id%}"></a></strong>
+	  </div>
+	  <div class="card-body">
+	  	<h6 class="card-subtitle mb-2 text-body-secondary">Venue: {{event.venue}}</h6>
+	 	<p class="card-text">Manager: {{event.manager}}</p>
+	 	<p class="card-text">Date: {{event.event_date}}</p>
+	    <p class="card-text bg-light rounded pt-3 pb-3">{{event.description}}</p>
+		<a href="{% url 'events:show_venue' }" class="card-link">{{event.venue.web}}<br/></a>
+		<p class="card-text">{{event.event_date}}</p>
+	  </div>
+	  <div class="card-footer text-muted">
+
+	  {% if user.name == event.manager %}
+	  		<a href="{% url 'events:update-event' event_id=event.id %}" class="btn   btn-outline-secondary">Update Event</a>
+	  		<a href="{% url 'events:delete-event' event_id=event.id %}" class="btn   btn-outline-danger mt-auto">Delete</a>
+	  {%endif%}
+
+	  </div>
+	  
+	</div><br/>
+
+ 
+	{%endfor%} -->
+
+{%endblock%}
